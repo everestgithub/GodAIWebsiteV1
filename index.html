@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link id="favicon" rel="icon" href="./public/favicon-black.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GodAI - Your True Companion AI Assistant</title>
+    <meta name="description" content="GodAI is the first-ever AI Assistant that connects with you on a human-level, providing not only entertainment, but companionship and engagement." />
+    <script>
+      // Function to update the favicon based on the color scheme
+      function updateFavicon() {
+        const favicon = document.getElementById('favicon');
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          // Dark mode
+          favicon.href = './public/favicon-white.png';
+        
+        } else {
+          // Light mode
+          favicon.href = './public/favicon-black.png';
+         
+        }
+      }
+
+      // Initial check
+      updateFavicon();
+
+      // Listen for changes in the color scheme
+      const colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      colorSchemeQuery.addEventListener('change', updateFavicon);
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
