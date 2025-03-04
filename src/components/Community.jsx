@@ -1,5 +1,7 @@
 import React from 'react'
-import { FaTelegramPlane, FaTwitter } from "react-icons/fa"
+import { FaTelegramPlane } from "react-icons/fa"
+import { FaXTwitter } from "react-icons/fa6"
+
 const Community = () => {
   return (
     <div>
@@ -21,9 +23,9 @@ const Community = () => {
                       className="flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 transition-colors text-lg"
                     >
                       <div className="w-10 h-10 flex items-center justify-center bg-blue-100 dark:bg-blue-900/30 rounded-full mr-3">
-                        <FaTwitter className="w-6 h-6" /> {/* Twitter Icon */}
+                        <FaXTwitter className="w-6 h-6" /> {/* X Icon */}
                       </div>
-                      <span className="font-medium">Twitter</span>
+                      <span className="font-medium">X</span>
                     </a>
                   </div>
                 </div>
