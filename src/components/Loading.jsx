@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import logo from "/GodAi.png";
+import logo from "/logo icon transparent-03.png";
 const Loading = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
   const [loadingText, setLoadingText] = useState("Loading");
@@ -49,7 +49,7 @@ const Loading = ({ onComplete }) => {
           className="mb-12"
         >
           <motion.div
-            className="w-24 h-24 rounded-2xl bg-white flex items-center justify-center"
+            className="w-24 h-24 flex items-center justify-center"
             animate={{
               rotate: [0, 10, 0, -10, 0],
               scale: [1, 1.05, 1, 1.05, 1],
@@ -61,9 +61,11 @@ const Loading = ({ onComplete }) => {
               repeatType: "loop",
             }}
           >
-            <span className="text-white text-3xl font-bold">
-                <img src={logo} alt="" srcset="" />
-            </span>
+            <img 
+              src={logo} 
+              alt="ChainAI Logo" 
+              className="w-full h-full object-contain" 
+            />
           </motion.div>
         </motion.div>
 

@@ -18,7 +18,7 @@ const Footer = () => {
         <div className="border-t border-gray-700 pt-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <p className="text-sm text-gray-300">
-              &copy; {new Date().getFullYear()} GodAI. All rights reserved.
+              &copy; {new Date().getFullYear()} ChainAI. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               {["Terms", "Privacy", "Cookies"].map((item, index) => (
@@ -30,7 +30,7 @@ const Footer = () => {
           </div>
 
           <p className="text-[10px] text-gray-400 mt-6 leading-relaxed">
-          DISCLAIMER: The information on this website is not a solicitation to purchase or invest in $GOD token or any token mentioned on this website. If you decide to purchase any token, you do so with the understanding that you may lose some or all of your investment. Owning $GOD tokens, whether purchased or earned, does not entitle you to the GodAI team's attention, efforts, or services, nor does it constitute a business relationship between you and the GodAI team or its partners. The GodAI team reserves the right to cease support for the token, the GodAI app, or cancel the project at any time they deem appropriate.
+          DISCLAIMER: The information on this website is not a solicitation to purchase or invest in $CHAIN token or any token mentioned on this website. If you decide to purchase any token, you do so with the understanding that you may lose some or all of your investment. Owning $CHAIN tokens, whether purchased or earned, does not entitle you to the ChainAI team's attention, efforts, or services, nor does it constitute a business relationship between you and the ChainAI team or its partners. The ChainAI team reserves the right to cease support for the token, the ChainAI app, or cancel the project at any time they deem appropriate.
 
           </p>
         </div>
