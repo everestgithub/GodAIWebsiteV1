@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Loading from "./components/Loading";
 import Home from "./components/Home";
 import BlogList from './components/BlogList';
 import BlogDetail from './components/BlogDetail';
 import Navbar from './components/Navbar';
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
   const [theme, setTheme] = useState(() => {
     // Check localStorage first
     const savedTheme = localStorage.getItem('theme');
@@ -38,24 +36,15 @@ function App() {
     setTheme(prevTheme => prevTheme === "dark" ? "light" : "dark");
   };
 
-  const handleLoadingComplete = () => {
-    setIsLoading(false);
-  };
-
   return (
     <Router>
       <div className={`min-h-screen transition-colors duration-300 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
-        {isLoading && <Loading onComplete={handleLoadingComplete} />}
-        {!isLoading && (
-          <>
-            <Navbar theme={theme} toggleTheme={toggleTheme} />
-            <Routes>
-              <Route path="/" element={<Home theme={theme} toggleTheme={toggleTheme} />} />
-              <Route path="/blog" element={<BlogList theme={theme} toggleTheme={toggleTheme} />} />
-              <Route path="/blog/:slug" element={<BlogDetail theme={theme} toggleTheme={toggleTheme} />} />
-            </Routes>
-          </>
-        )}
+        <Navbar theme={theme} toggleTheme={toggleTheme} />
+        <Routes>
+          <Route path="/" element={<Home theme={theme} toggleTheme={toggleTheme} />} />
+          <Route path="/blog" element={<BlogList theme={theme} toggleTheme={toggleTheme} />} />
+          <Route path="/blog/:slug" element={<BlogDetail theme={theme} toggleTheme={toggleTheme} />} />
+        </Routes>
       </div>
     </Router>
   );
