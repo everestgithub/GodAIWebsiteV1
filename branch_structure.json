@@ -1,0 +1,21 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "chainai-main-update",
+    "develop",
+    "main",
+    "origin"
+  ],
+  "parent": {
+    "chainai-main-update": "main",
+    "develop": "main",
+    "main": null,
+    "origin": "main"
+  },
+  "order": [
+    "main",
+    "chainai-main-update",
+    "develop",
+    "origin"
+  ]
+}

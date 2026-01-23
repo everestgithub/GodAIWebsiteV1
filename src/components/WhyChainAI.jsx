@@ -1,6 +1,6 @@
 import { Search, User, Sparkles } from "lucide-react"
 
-const WhyGodAI = () => {
+const WhyChainAI = () => {
   const differences = [
     {
       icon: <Search className="h-6 w-6" />,
@@ -69,4 +69,4 @@ const WhyGodAI = () => {
   )
 }
 
-export default WhyGodAI
+export default WhyChainAI
