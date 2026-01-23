@@ -1,38 +1,18 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import ReactMarkdown from 'react-markdown';
+import { getLatestBlogs } from '../data/blogData';
 
 const HomeBlogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const response = await axios.get('https://mygodai.app/api/blogs', {
-          params: {
-            populate: '*',
-            'pagination[limit]': 3,
-            sort: 'createdAt:desc'
-          }
-        });
-        
-        if (response.data && response.data.data) {
-          setBlogs(response.data.data);
-        } else {
-          setError('No blog data found in the response');
-        }
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching blogs:', error);
-        setError('Failed to fetch blogs');
-        setLoading(false);
-      }
-    };
-
-    fetchBlogs();
+    // Simulate loading delay for better UX
+    setTimeout(() => {
+      const latestBlogs = getLatestBlogs(3);
+      setBlogs(latestBlogs);
+      setLoading(false);
+    }, 500);
   }, []);
 
   const renderContent = (content) => {
@@ -64,14 +44,6 @@ const HomeBlogs = () => {
     );
   }
 
-  if (error) {
-    return (
-      <div className="flex justify-center items-center py-12">
-        <div className="text-red-500">{error}</div>
-      </div>
-    );
-  }
-
   return (
     <div className="py-24 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-black">
       <div className="container mx-auto px-4">
@@ -92,7 +64,7 @@ const HomeBlogs = () => {
                 {blog.FeaturedImage && blog.FeaturedImage[0] && (
                   <div className="relative h-64 overflow-hidden">
                     <img
-                      src={`https://mygodai.app${blog.FeaturedImage[0].url}`}
+                      src={blog.FeaturedImage[0].url}
                       alt={blog.TItle || 'Blog image'}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { getBlogBySlug } from '../data/blogData';
 import Footer from './Footer';
 
 const BlogDetail = () => {
@@ -11,66 +11,28 @@ const BlogDetail = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchBlog = async () => {
-      try {
-        console.log('Fetching blog with slug:', slug);
-
-        // Fetch blog by exact slug match
-        const response = await axios.get(
-          `https://mygodai.app/api/blogs?filters[Slug][$eq]=${slug}&populate=*`
-        );
-
-        console.log('Blog search response:', response.data);
-
-        if (response.data && response.data.data && response.data.data.length > 0) {
-          const blogData = response.data.data[0];
-          console.log('Found blog:', { 
-            id: blogData.id, 
-            title: blogData.TItle, 
-            slug: blogData.Slug 
-          });
-          setBlog(blogData);
-        } else {
-          // Try searching by title as fallback
-          const titleResponse = await axios.get(
-            `https://mygodai.app/api/blogs?filters[TItle][$eq]=${slug}&populate=*`
-          );
-
-          if (titleResponse.data && titleResponse.data.data && titleResponse.data.data.length > 0) {
-            const blogData = titleResponse.data.data[0];
-            console.log('Found blog by title:', { 
-              id: blogData.id, 
-              title: blogData.TItle, 
-              slug: blogData.Slug 
-            });
-            setBlog(blogData);
-          } else {
-            console.error('No blog found with slug or title:', slug);
-            setError('Blog not found');
-            setTimeout(() => navigate('/blog'), 3000);
-          }
-        }
+    // Simulate loading delay for better UX
+    setLoading(true);
+    setTimeout(() => {
+      const blogData = getBlogBySlug(slug);
+      
+      if (blogData) {
+        setBlog(blogData);
         setLoading(false);
-      } catch (error) {
-        console.error('Error fetching blog:', error.response || error);
-        setError('Failed to fetch blog');
+      } else {
+        setError('Blog not found');
         setLoading(false);
+        setTimeout(() => navigate('/blog'), 3000);
       }
-    };
-
-    fetchBlog();
+    }, 500);
   }, [slug, navigate]);
 
   const renderContent = (content) => {
-    console.log('Content to render:', content);
-
     if (!content || !Array.isArray(content) || content.length === 0) {
       return <p>No content available</p>;
     }
 
     return content.map((block, index) => {
-      console.log('Rendering block:', block);
-
       if (block.type === 'paragraph') {
         return (
           <p key={index} className="mb-4">
@@ -160,7 +122,7 @@ const BlogDetail = () => {
           {blog.FeaturedImage && blog.FeaturedImage[0] && (
             <div className="relative h-96 overflow-hidden">
               <img
-                src={`https://mygodai.app${blog.FeaturedImage[0].url}`}
+                src={blog.FeaturedImage[0].url}
                 alt={blog.TItle || 'Blog image'}
                 className="w-full h-full object-cover"
               />

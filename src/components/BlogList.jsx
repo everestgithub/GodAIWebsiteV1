@@ -1,43 +1,24 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import ReactMarkdown from 'react-markdown';
+import { getPaginatedBlogs } from '../data/blogData';
 import Footer from './Footer';
+
 const BlogList = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const postsPerPage = 9;
 
   useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const response = await axios.get('https://mygodai.app/api/blogs', {
-          params: {
-            populate: '*',
-            'pagination[page]': currentPage,
-            'pagination[pageSize]': postsPerPage,
-            sort: 'createdAt:desc'
-          }
-        });
-        
-        if (response.data && response.data.data) {
-          setBlogs(response.data.data);
-          setTotalPages(response.data.meta.pagination.pageCount);
-        } else {
-          setError('No blog data found in the response');
-        }
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching blogs:', error);
-        setError('Failed to fetch blogs');
-        setLoading(false);
-      }
-    };
-
-    fetchBlogs();
+    // Simulate loading delay for better UX
+    setLoading(true);
+    setTimeout(() => {
+      const response = getPaginatedBlogs(currentPage, postsPerPage);
+      setBlogs(response.data);
+      setTotalPages(response.meta.pagination.pageCount);
+      setLoading(false);
+    }, 500);
   }, [currentPage]);
 
   const renderContent = (content) => {
@@ -74,19 +55,11 @@ const BlogList = () => {
     );
   }
 
-  if (error) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="text-red-500">{error}</div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-black">
       <div className="container mx-auto px-4 pt-32 pb-24">
         <div className="text-center mb-16">
-        <h2 className="text-5xl font-bold mb-6 text-cyan-400">
+        <h2 className="text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#0d71fe] via-[#954fff] to-[#ed37fb]">
   All Blog Posts
 </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -107,7 +80,7 @@ const BlogList = () => {
                   {blog.FeaturedImage && blog.FeaturedImage[0] && (
                     <div className="relative h-64 overflow-hidden">
                       <img
-                        src={`https://mygodai.app${blog.FeaturedImage[0].url}`}
+                        src={blog.FeaturedImage[0].url}
                         alt={blog.TItle || 'Blog image'}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
