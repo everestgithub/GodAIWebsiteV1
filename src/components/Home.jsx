@@ -4,7 +4,7 @@ import Hero from "./Hero"
 import WhoWeAre from "./WhoWeAre"
 import Features from "./Features"
 import TrustedBy from "./TrustedBy"
-import WhyGodAI from "./WhyGodAI"
+import WhyChainAI from "./WhyChainAI"
 import Community from "./Community"
 import HomeBlogs from "./HomeBlogs"
 import Footer from "./Footer"
@@ -28,7 +28,7 @@ function Home({ theme, toggleTheme }) {
         <Community />
       </div>
       <div id="why-chainai">
-        <WhyGodAI />
+        <WhyChainAI />
       </div>
       <HomeBlogs />
       {/* Final CTA Section */}
